@@ -1,5 +1,6 @@
 import subprocess
 import os
+import sys
 import argparse
 from pathlib import Path
 
@@ -29,7 +30,7 @@ def main():
 
     print(f'Service Name: {args.name}')
     print(f'Using \'{file_path}\'')
-    bin_path = ' '.join([f"\\\"{str(Path(os.path.dirname(__file__)) / Path('ServiceWrapper.exe'))}\\\"",
+    bin_path = ' '.join([f"\\\"{str(Path(os.path.dirname(sys.argv[0])) / Path('ServiceWrapper.exe'))}\\\"",
                          f"\\\"{os.getcwd()}\\\"",
                          f"\\\"{file_path}\\\"",
                          eval(args.arguments)])
