@@ -32,6 +32,10 @@ optional arguments:
   --obj OBJ             the account used to run the service
                         (default=LocalSystem)
 ```
+When using `--arguments`, make sure you added two double quotes around it. For example
+```bash
+--arguments "\"test.py log.txt\""
+```
 
 ## Uninstall
 Use Windows `sc` command.
