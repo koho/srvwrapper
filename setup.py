@@ -7,7 +7,7 @@ setup(
     description='srvwrapper wraps any applications to run as Windows Service',
     author='Gerhard Tan',
     author_email='gerhard.gh.ta@gmail.com',
-    url=None,
+    url='https://github.com/koho/srvwrapper',
     py_modules=['srvwrapper'],
     entry_points={
         "console_scripts": [
