@@ -20,33 +20,33 @@ def main():
         file_path = os.path.abspath(args.program)
     else:
         try:
-            path_lists = subprocess.check_output(f'where {args.program}').decode().split()
+            path_lists = subprocess.check_output('where %s' % args.program).decode().split()
             if not path_lists:
-                raise ValueError(f'can not locate program path \'{args.program}\'')
+                raise ValueError('can not locate program path \'%s\'' % args.program)
             file_path = path_lists[0]
         except subprocess.CalledProcessError:
-            raise ValueError(f'can not locate program path \'{args.program}\'')
+            raise ValueError('can not locate program path \'%s\'' % args.program)
 
-    print(f'Service Name: {args.name}')
-    print(f'Using \'{file_path}\'')
-    bin_path = ' '.join([f"\\\"{os.path.join(os.path.dirname(sys.argv[0]), 'ServiceWrapper.exe')}\\\"",
-                         f"\\\"{os.getcwd()}\\\"",
-                         f"\\\"{file_path}\\\"",
+    print('Service Name: %s' % args.name)
+    print('Using \'%s\'' % file_path)
+    bin_path = ' '.join(["\\\"%s\\\"" % os.path.join(os.path.dirname(sys.argv[0]), 'ServiceWrapper.exe'),
+                         "\\\"%s\\\"" % os.getcwd(),
+                         "\\\"%s\\\"" % file_path,
                          eval(args.arguments)])
-    command = f"sc create {args.name} "
+    command = "sc create %s " % args.name
     if args.display:
-        command += f"DisplayName= \"{args.display}\" "
-    command += f"binPath= \"{bin_path}\" "
+        command += "DisplayName= \"%s\" " % args.display
+    command += "binPath= \"%s\" " % bin_path
     if args.start:
-        command += f"start= {args.start} "
+        command += "start= %s " % args.start
     if args.obj:
-        command += f"obj= \"{args.obj}\" "
+        command += "obj= \"%s\" " % args.obj
 
     print(command)
     subprocess.check_call(command)
 
     if args.description:
-        command = f"sc description {args.name} \"{args.description}\""
+        command = "sc description %s \"%s\"" % (args.name, args.description)
     print(command)
     subprocess.check_call(command)
 
