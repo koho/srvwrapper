@@ -5,7 +5,7 @@ Create Windows service from executable
 ### Step 1:
 Download and install the `srvwrapper` package for python.
 ```
-pip install srvwrapper-1.0-py3-none-any.whl
+pip install srvwrapper
 ```
 ### Step 2:
 Use the `srvwrapper` command and pass the service name and program path to create a service. Other optional commands are listed with the `--help` command.
