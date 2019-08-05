@@ -32,10 +32,23 @@ optional arguments:
   --obj OBJ             the account used to run the service
                         (default=LocalSystem)
 ```
-When using `--arguments`, make sure you added two double quotes around it. For example
-```bash
---arguments "\"test.py log.txt\""
+When using `--arguments`, make sure you added a double quote around it. Here are some examples:
+1. Create a service named `service1` with command line `python test.py log.txt`.
+```cmd
+srvwrapper service1 python --arguments "test.py log.txt"
 ```
+2. Using absolute program path to create a service.
+```cmd
+srvwrapper service2 C:\Python36\python.exe --arguments "\\\"D:\test 1\test.py\\\"" --display "Service 2" --description "A description" --start auto
+```
+
+### Step 3:
+To start/stop the service, use the `net` command
+```cmd
+net start service_name
+net stop service_name
+```
+
 
 ## Uninstall
 Use Windows `sc` command.
