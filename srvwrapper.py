@@ -32,7 +32,7 @@ def main():
     bin_path = ' '.join(["\\\"%s\\\"" % os.path.join(os.path.dirname(sys.argv[0]), 'ServiceWrapper.exe'),
                          "\\\"%s\\\"" % os.getcwd(),
                          "\\\"%s\\\"" % file_path,
-                         eval(args.arguments)])
+                         args.arguments])
     command = "sc create %s " % args.name
     if args.display:
         command += "DisplayName= \"%s\" " % args.display
