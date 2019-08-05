@@ -47,8 +47,8 @@ def main():
 
     if args.description:
         command = "sc description %s \"%s\"" % (args.name, args.description)
-    print(command)
-    subprocess.check_call(command)
+        print(command)
+        subprocess.check_call(command)
 
 
 if __name__ == '__main__':
