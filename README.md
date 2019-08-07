@@ -11,7 +11,8 @@ pip install srvwrapper
 Use the `srvwrapper` command and pass the service name and program path to create a service. Other optional commands are listed with the `--help` command.
 ```
 usage: srvwrapper [-h] [--arguments ARGUMENTS] [--display DISPLAY]
-                  [--description DESCRIPTION] [--start START] [--obj OBJ]
+                  [--description DESCRIPTION] [--start START]
+                  [--depend DEPEND] [--obj OBJ] [--password PASSWORD]
                   name program
 
 Wrap any applications to run as Windows Service
@@ -29,17 +30,23 @@ optional arguments:
                         service description
   --start START         how the service starts
                         <boot|system|auto|demand|disabled|delayed-auto>
+  --depend DEPEND       dependencies(separated by / (forward slash))
   --obj OBJ             the account used to run the service
                         (default=LocalSystem)
+  --password PASSWORD   password of the account
 ```
 When using `--arguments`, make sure you added a double quote around it. Here are some examples:
 1. Create a service named `service1` with command line `python test.py log.txt`.
 ```cmd
 srvwrapper service1 python --arguments "test.py log.txt"
 ```
-2. Using absolute program path to create a service.
+2. Use absolute program path to create a service.
 ```cmd
 srvwrapper service2 C:\Python36\python.exe --arguments "\\\"D:\test 1\test.py\\\"" --display "Service 2" --description "A description" --start auto
+```
+3. Use specific account.
+```cmd
+srvwrapper service3 ping --arguments "-t github.com" --obj "NT AUTHORITY\NetworkService" --depend service2/service1
 ```
 
 ### Step 3:

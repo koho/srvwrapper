@@ -13,14 +13,16 @@ def main():
     parser.add_argument('--description', dest='description', help='service description')
     parser.add_argument('--start', dest='start', help='how the service starts '
                                                       '<boot|system|auto|demand|disabled|delayed-auto>')
+    parser.add_argument('--depend', dest='depend', help='dependencies(separated by / (forward slash))')
     parser.add_argument('--obj', dest='obj', help='the account used to run the service (default=LocalSystem)')
+    parser.add_argument('--password', dest='password', help='password of the account')
 
     args = parser.parse_args()
     if os.path.exists(args.program):
         file_path = os.path.abspath(args.program)
     else:
         try:
-            path_lists = subprocess.check_output('where %s' % args.program).decode().split()
+            path_lists = subprocess.check_output('where %s' % args.program).decode().split('\r\n')
             if not path_lists:
                 raise ValueError('can not locate program path \'%s\'' % args.program)
             file_path = path_lists[0]
@@ -41,6 +43,10 @@ def main():
         command += "start= %s " % args.start
     if args.obj:
         command += "obj= \"%s\" " % args.obj
+    if args.password:
+        command += "password= \"%s\" " % args.password
+    if args.depend:
+        command += "depend= %s" % args.depend
 
     print(command)
     subprocess.check_call(command)
