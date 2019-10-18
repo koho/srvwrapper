@@ -18,7 +18,7 @@ def main():
     parser.add_argument('--password', dest='password', help='password of the account')
 
     args = parser.parse_args()
-    if os.path.exists(args.program):
+    if os.path.exists(args.program) and os.path.isfile(args.program):
         file_path = os.path.abspath(args.program)
     else:
         try:
