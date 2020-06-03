@@ -14,7 +14,7 @@ README = readall('README.md')
 
 setup(
     name='srvwrapper',
-    version='1.4',
+    version='1.5',
     description='srvwrapper wraps any applications to run as Windows Service',
     long_description=README,
     long_description_content_type="text/markdown",

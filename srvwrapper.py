@@ -16,6 +16,15 @@ def main():
     parser.add_argument('--depend', dest='depend', help='dependencies(separated by / (forward slash))')
     parser.add_argument('--obj', dest='obj', help='the account used to run the service (default=LocalSystem)')
     parser.add_argument('--password', dest='password', help='password of the account')
+    parser.add_argument('--failure-reset', dest='failure_reset', help="specifies the length of the period (in seconds) "
+                                                                      "with no failures after which the failure count "
+                                                                      "should be reset to 0 (zero).", type=int)
+    parser.add_argument('--failure-command', dest='failure_command', help="specifies the command-line command to be run"
+                                                                          " when the specified service fails.")
+    parser.add_argument('--failure-actions', dest="failure_actions", help="specifies one or more failure actions and "
+                                                                          "their delay times (in milliseconds), "
+                                                                          "separated by a forward slash (/). "
+                                                                          "Valid actions are run, restart, and reboot.")
 
     args = parser.parse_args()
     if os.path.exists(args.program) and os.path.isfile(args.program):
@@ -53,6 +62,17 @@ def main():
 
     if args.description:
         command = "sc description %s \"%s\"" % (args.name, args.description)
+        print(command)
+        subprocess.check_call(command)
+
+    if any([args.failure_reset, args.failure_command, args.failure_actions]):
+        command = "sc failure %s " % args.name
+        if args.failure_reset:
+            command += "reset= %d " % args.failure_reset
+        if args.failure_command:
+            command += "command= %s " % args.failure_command
+        if args.failure_actions:
+            command += "actions= %s " % args.failure_actions
         print(command)
         subprocess.check_call(command)
 

@@ -34,6 +34,17 @@ optional arguments:
   --obj OBJ             the account used to run the service
                         (default=LocalSystem)
   --password PASSWORD   password of the account
+  --failure-reset FAILURE_RESET
+                        specifies the length of the period (in seconds) with
+                        no failures after which the failure count should be
+                        reset to 0 (zero).
+  --failure-command FAILURE_COMMAND
+                        specifies the command-line command to be run when the
+                        specified service fails.
+  --failure-actions FAILURE_ACTIONS
+                        specifies one or more failure actions and their delay
+                        times (in milliseconds), separated by a forward slash
+                        (/). Valid actions are run, restart, and reboot.
 ```
 When using `--arguments`, make sure you added a double quote around it. Here are some examples:
 1. Create a service named `service1` with command line `python test.py log.txt`.
